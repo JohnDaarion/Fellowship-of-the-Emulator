@@ -9,7 +9,7 @@ namespace DeviceEmulator.Infrastructure
 {
     public static class Config
     {
-        public const string ExchangeFilePath = @"E:/Repozytoria/DeviceEmulatorGroup/DeviceEmulator/Infrastructure/SharedVariables.csv";
+        public const string ExchangeFilePath = "Infrastructure/SharedVariables.csv";
         public const string InfoTextBox1Key = "Poziom naładowania baterii: ";
         public const string InfoTextBox2Key = "Temperatura: ";
         public const string InfoTextBox3Key = "Poziom wilgotności: ";

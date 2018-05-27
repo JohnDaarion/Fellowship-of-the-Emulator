@@ -19,8 +19,7 @@ namespace DeviceEmulator
         public bool Diode1State {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode1", value.ToString());
+                SetValue("Diode1", value.ToString());
             }
         }
 
@@ -29,8 +28,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode2", value.ToString());
+                SetValue("Diode2", value.ToString());
             }
         }
 
@@ -38,8 +36,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode3", value.ToString());
+                SetValue("Diode3", value.ToString());
             }
         }
 
@@ -47,8 +44,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode4", value.ToString());
+                SetValue("Diode4", value.ToString());
             }
         }
 
@@ -56,8 +52,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode5", value.ToString());
+                SetValue("Diode5", value.ToString());
             }
         }
 
@@ -65,8 +60,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode6", value.ToString());
+                SetValue("Diode6", value.ToString());
             }
         }
 
@@ -74,8 +68,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode7", value.ToString());
+                SetValue("Diode7", value.ToString());
             }
         }
 
@@ -83,8 +76,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "Diode8", value.ToString());
+                SetValue("Diode8", value.ToString());
             }
         }
 
@@ -92,8 +84,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "infoTextBox1", value.ToString());
+                SetValue("infoTextBox1", value.ToString());
             }
         }
 
@@ -101,8 +92,7 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "infoTextBox2", value.ToString());
+                SetValue("infoTextBox2", value.ToString());
             }
         }
 
@@ -110,21 +100,19 @@ namespace DeviceEmulator
         {
             set
             {
-                var file = GetFile(Config.ExchangeFilePath);
-                SetValue(file, "infoTextBox3", value.ToString());
+                SetValue("infoTextBox3", value.ToString());
             }
         }
 
-        private void SetValue(List<string[]> source , string key, string value)
+        private void SetValue(string key, string value)
         {
+            var source = GetFile(Config.ExchangeFilePath);
             StringBuilder builder = new StringBuilder();
 
             foreach (var record in source)
             {
                 if (String.Equals(record[0], key, StringComparison.OrdinalIgnoreCase))
                 {
-                    //bool value = bool.Parse(record[1]);
-                    //Diode1State = value;
                     record[1] = value;
                     break;
                 }
@@ -132,7 +120,6 @@ namespace DeviceEmulator
 
             foreach(var record in source)
             {
-                //record = record[0] + ";" + record[1];
                 builder.Append(record[0]);
                 builder.Append(";");
                 builder.Append(record[1]);
