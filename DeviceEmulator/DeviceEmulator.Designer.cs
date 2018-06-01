@@ -40,7 +40,15 @@
             this.infoTextBox2 = new System.Windows.Forms.TextBox();
             this.infoTextBox3 = new System.Windows.Forms.TextBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.gb1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RBGeneratorOn = new System.Windows.Forms.RadioButton();
+            this.RBGeneratorOff = new System.Windows.Forms.RadioButton();
+            this.RBBluetoothOn = new System.Windows.Forms.RadioButton();
+            this.RBBluetoothOff = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.gb1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // diode1
@@ -122,27 +130,27 @@
             // 
             // infoTextBox1
             // 
-            this.infoTextBox1.Location = new System.Drawing.Point(26, 70);
+            this.infoTextBox1.Location = new System.Drawing.Point(13, 70);
             this.infoTextBox1.Name = "infoTextBox1";
             this.infoTextBox1.ReadOnly = true;
-            this.infoTextBox1.Size = new System.Drawing.Size(263, 20);
+            this.infoTextBox1.Size = new System.Drawing.Size(286, 20);
             this.infoTextBox1.TabIndex = 8;
             this.infoTextBox1.TextChanged += new System.EventHandler(this.infoTextBox1_TextChanged);
             // 
             // infoTextBox2
             // 
-            this.infoTextBox2.Location = new System.Drawing.Point(26, 108);
+            this.infoTextBox2.Location = new System.Drawing.Point(13, 108);
             this.infoTextBox2.Name = "infoTextBox2";
             this.infoTextBox2.ReadOnly = true;
-            this.infoTextBox2.Size = new System.Drawing.Size(263, 20);
+            this.infoTextBox2.Size = new System.Drawing.Size(286, 20);
             this.infoTextBox2.TabIndex = 9;
             // 
             // infoTextBox3
             // 
-            this.infoTextBox3.Location = new System.Drawing.Point(26, 147);
+            this.infoTextBox3.Location = new System.Drawing.Point(13, 147);
             this.infoTextBox3.Name = "infoTextBox3";
             this.infoTextBox3.ReadOnly = true;
-            this.infoTextBox3.Size = new System.Drawing.Size(263, 20);
+            this.infoTextBox3.Size = new System.Drawing.Size(286, 20);
             this.infoTextBox3.TabIndex = 10;
             // 
             // fileSystemWatcher1
@@ -153,11 +161,82 @@
             this.fileSystemWatcher1.SynchronizingObject = this;
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
+            // gb1
+            // 
+            this.gb1.Controls.Add(this.RBGeneratorOff);
+            this.gb1.Controls.Add(this.RBGeneratorOn);
+            this.gb1.Location = new System.Drawing.Point(13, 174);
+            this.gb1.Name = "gb1";
+            this.gb1.Size = new System.Drawing.Size(131, 43);
+            this.gb1.TabIndex = 12;
+            this.gb1.TabStop = false;
+            this.gb1.Text = "Generator";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.RBBluetoothOff);
+            this.groupBox2.Controls.Add(this.RBBluetoothOn);
+            this.groupBox2.Location = new System.Drawing.Point(161, 174);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(138, 43);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bluetooth";
+            // 
+            // RBGeneratorOn
+            // 
+            this.RBGeneratorOn.AutoSize = true;
+            this.RBGeneratorOn.Location = new System.Drawing.Point(7, 19);
+            this.RBGeneratorOn.Name = "RBGeneratorOn";
+            this.RBGeneratorOn.Size = new System.Drawing.Size(39, 17);
+            this.RBGeneratorOn.TabIndex = 0;
+            this.RBGeneratorOn.Text = "On";
+            this.RBGeneratorOn.UseVisualStyleBackColor = true;
+            this.RBGeneratorOn.CheckedChanged += new System.EventHandler(this.RBGeneratorOn_CheckedChanged);
+            // 
+            // RBGeneratorOff
+            // 
+            this.RBGeneratorOff.AutoSize = true;
+            this.RBGeneratorOff.Checked = true;
+            this.RBGeneratorOff.Location = new System.Drawing.Point(74, 19);
+            this.RBGeneratorOff.Name = "RBGeneratorOff";
+            this.RBGeneratorOff.Size = new System.Drawing.Size(39, 17);
+            this.RBGeneratorOff.TabIndex = 1;
+            this.RBGeneratorOff.TabStop = true;
+            this.RBGeneratorOff.Text = "Off";
+            this.RBGeneratorOff.UseVisualStyleBackColor = true;
+            this.RBGeneratorOff.CheckedChanged += new System.EventHandler(this.RBGeneratorOn_CheckedChanged);
+            // 
+            // RBBluetoothOn
+            // 
+            this.RBBluetoothOn.AutoSize = true;
+            this.RBBluetoothOn.Location = new System.Drawing.Point(7, 20);
+            this.RBBluetoothOn.Name = "RBBluetoothOn";
+            this.RBBluetoothOn.Size = new System.Drawing.Size(39, 17);
+            this.RBBluetoothOn.TabIndex = 0;
+            this.RBBluetoothOn.Text = "On";
+            this.RBBluetoothOn.UseVisualStyleBackColor = true;
+            // 
+            // RBBluetoothOff
+            // 
+            this.RBBluetoothOff.AutoSize = true;
+            this.RBBluetoothOff.Checked = true;
+            this.RBBluetoothOff.Location = new System.Drawing.Point(79, 19);
+            this.RBBluetoothOff.Name = "RBBluetoothOff";
+            this.RBBluetoothOff.Size = new System.Drawing.Size(39, 17);
+            this.RBBluetoothOff.TabIndex = 1;
+            this.RBBluetoothOff.TabStop = true;
+            this.RBBluetoothOff.Text = "Off";
+            this.RBBluetoothOff.UseVisualStyleBackColor = true;
+            this.RBBluetoothOff.CheckedChanged += new System.EventHandler(this.RBBluetoothOff_CheckedChanged);
+            // 
             // DeviceEmulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 262);
+            this.ClientSize = new System.Drawing.Size(319, 233);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gb1);
             this.Controls.Add(this.infoTextBox3);
             this.Controls.Add(this.infoTextBox2);
             this.Controls.Add(this.infoTextBox1);
@@ -173,6 +252,10 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DeviceEmulator_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.gb1.ResumeLayout(false);
+            this.gb1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +275,12 @@
         private System.Windows.Forms.TextBox infoTextBox2;
         private System.Windows.Forms.TextBox infoTextBox3;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton RBBluetoothOff;
+        private System.Windows.Forms.RadioButton RBBluetoothOn;
+        private System.Windows.Forms.GroupBox gb1;
+        private System.Windows.Forms.RadioButton RBGeneratorOff;
+        private System.Windows.Forms.RadioButton RBGeneratorOn;
     }
 }
 

@@ -16,10 +16,8 @@ namespace DeviceEmulator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DeviceEmulator());
-
-            DeviceEmulator form = new DeviceEmulator();
-            Application.Run(form);
+            DeviceEmulator deviceEmulator = new DeviceEmulator();
+            Application.Run(deviceEmulator);
         }
     }
 }

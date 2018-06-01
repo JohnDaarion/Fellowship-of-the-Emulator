@@ -14,16 +14,14 @@ namespace DeviceEmulator
         {
 
         }
-
-
+        
         public bool Diode1State {
             set
             {
                 SetValue("Diode1", value.ToString());
             }
         }
-
-
+        
         public bool Diode2State
         {
             set

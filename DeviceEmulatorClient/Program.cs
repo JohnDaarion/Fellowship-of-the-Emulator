@@ -11,7 +11,7 @@ namespace DeviceEmulatorClient
     {
         static void Main(string[] args)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(500);
             DeviceEmulator.DeviceEmulatorManager manager = new DeviceEmulator.DeviceEmulatorManager();
             manager.Diode1State = true;
             manager.Diode2State = true;

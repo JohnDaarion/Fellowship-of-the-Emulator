@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DeviceEmulator.Infrastructure;
@@ -17,7 +18,9 @@ namespace DeviceEmulator
         private string _infoTextBox1Key;
         private string _infoTextBox2Key;
         private string _infoTextBox3Key;
-
+        private CancellationTokenSource _cancelSource;
+        private Commands _commands;
+        private ReceiverBluetoothService _receiver;
 
         public DeviceEmulator()
         {
@@ -28,9 +31,10 @@ namespace DeviceEmulator
             infoTextBox2.Text = _infoTextBox2Key;
             _infoTextBox3Key = Config.InfoTextBox3Key;
             infoTextBox3.Text = _infoTextBox3Key;
+            _commands = new Commands(this);
+            _receiver = new ReceiverBluetoothService(_commands);
         }
-
-
+        
         public bool Diode1State
         {
             get
@@ -135,7 +139,8 @@ namespace DeviceEmulator
             }
             set
             {
-                infoTextBox1.Text = _infoTextBox1Key + " " + value;
+                infoTextBox1.Invoke((MethodInvoker)(() => infoTextBox1.Text = _infoTextBox1Key + " " + value));
+                //infoTextBox1.Text = _infoTextBox1Key + " " + value;
             }
         }
 
@@ -147,7 +152,8 @@ namespace DeviceEmulator
             }
             set
             {
-                infoTextBox2.Text = _infoTextBox2Key + " " + value;
+                infoTextBox2.Invoke((MethodInvoker)(() => infoTextBox2.Text = _infoTextBox2Key + " " + value));
+                //infoTextBox2.Text = _infoTextBox2Key + " " + value;
             }
         }
 
@@ -159,7 +165,8 @@ namespace DeviceEmulator
             }
             set
             {
-                infoTextBox3.Text = _infoTextBox3Key + " " + value;
+                infoTextBox3.Invoke((MethodInvoker)(() => infoTextBox3.Text = _infoTextBox3Key + " " + value));
+                //infoTextBox3.Text = _infoTextBox3Key + " " + value;
             }
         }
 
@@ -167,11 +174,13 @@ namespace DeviceEmulator
         {
             if (state)
             {
-                diode.BackColor = Config.EnabledDiodeColor;
+                diode.Invoke((MethodInvoker)(() => diode.BackColor = Config.EnabledDiodeColor));
+                //diode.BackColor = Config.EnabledDiodeColor;
             }
             else
             {
-                diode.BackColor = Config.DisabledDiodeColor;
+                diode.Invoke((MethodInvoker)(() => diode.BackColor = Config.DisabledDiodeColor));
+                //diode.BackColor = Config.DisabledDiodeColor;
             }
         }
 
@@ -305,6 +314,49 @@ namespace DeviceEmulator
         private void diode5_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public void GenerateNewValues(CancellationTokenSource token)
+        {
+            Random random = new Random();
+
+            while (true)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+                
+                InfoTextBox1Value = random.Next(101).ToString();
+                InfoTextBox2Value = random.Next(101).ToString();
+                InfoTextBox3Value = random.Next(101).ToString();
+                Thread.Sleep(10000);
+            }
+        }
+
+        private void RBGeneratorOn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RBGeneratorOn.Checked)
+            {
+                _cancelSource = new CancellationTokenSource();
+                Task.Run(() => GenerateNewValues(_cancelSource));
+            }
+            else
+            {
+                _cancelSource.Cancel();
+            }
+        }
+
+        private void RBBluetoothOff_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RBBluetoothOn.Checked)
+            {
+                _receiver.Start();
+            }
+            else
+            {
+                _receiver.Stop();
+            }
         }
     }
 }
