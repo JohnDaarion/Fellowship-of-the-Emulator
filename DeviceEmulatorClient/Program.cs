@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeviceEmulator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,9 @@ namespace DeviceEmulatorClient
             manager.Diode2State = true;
             manager.Diode6State = true;
             manager.InfoTextBox1Value = "80%";
+            DaviceEmulatorManagerValuesSetter randomValuesSetter = new DaviceEmulatorManagerValuesSetter(manager, 6000);
+            randomValuesSetter.Start();
+            Console.ReadKey();
         }
     }
 }

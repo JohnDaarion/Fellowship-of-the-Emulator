@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
+    <Compile Include="DaviceEmulatorManagerValuesSetter.cs" />
     <Compile Include="DeviceEmulator.cs">
       <SubType>Form</SubType>
     </Compile>

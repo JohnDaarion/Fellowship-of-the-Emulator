@@ -31,6 +31,7 @@ namespace DeviceEmulator
             infoTextBox2.Text = _infoTextBox2Key;
             _infoTextBox3Key = Config.InfoTextBox3Key;
             infoTextBox3.Text = _infoTextBox3Key;
+            fileSystemWatcher1.Path = Config.ExchangeFileDir;
             _commands = new Commands(this);
             _receiver = new ReceiverBluetoothService(_commands);
         }
@@ -223,6 +224,8 @@ namespace DeviceEmulator
 
         private void fileSystemWatcher1_Changed(object sender, System.IO.FileSystemEventArgs e)
         {
+            Thread.Sleep(100);
+
             List<string[]> records = null;
 
             try
