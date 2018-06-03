@@ -78,11 +78,11 @@ namespace DeviceEmulator
 
                     try
                     {
-                        byte[] buffer = new byte[1024];
-                        streamwriter.Read(buffer, 0, buffer.Length);
-                        string result = Encoding.UTF8.GetString(buffer);
-                        var buffer2 = Encoding.UTF8.GetBytes(_commands.GetMessage(result.Trim()));
-                        streamwriter.Write(buffer2, 0, buffer2.Length);
+                        byte[] bufferIn = new byte[1024];
+                        streamwriter.Read(bufferIn, 0, bufferIn.Length);
+                        string result = Encoding.UTF8.GetString(bufferIn);
+                        var bufferOut = Encoding.UTF8.GetBytes(_commands.GetMessage(result.Replace("\0", "")));
+                        streamwriter.Write(bufferOut, 0, bufferOut.Length);
                         streamwriter.Flush();
                     }
                     finally
