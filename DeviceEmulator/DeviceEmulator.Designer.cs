@@ -46,9 +46,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RBBluetoothOff = new System.Windows.Forms.RadioButton();
             this.RBBluetoothOn = new System.Windows.Forms.RadioButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.gb1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // diode1
@@ -157,7 +159,7 @@
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.NotifyFilter = System.IO.NotifyFilters.LastWrite;
-            this.fileSystemWatcher1.Path = "E:\\Repozytoria\\DeviceEmulatorGroup\\DeviceEmulator\\Infrastructure";
+            this.fileSystemWatcher1.Path = "Infrastructure";
             this.fileSystemWatcher1.SynchronizingObject = this;
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
@@ -230,11 +232,21 @@
             this.RBBluetoothOn.Text = "On";
             this.RBBluetoothOn.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(339, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(300, 300);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
             // DeviceEmulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 233);
+            this.ClientSize = new System.Drawing.Size(651, 350);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gb1);
             this.Controls.Add(this.infoTextBox3);
@@ -256,6 +268,7 @@
             this.gb1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,6 +294,7 @@
         private System.Windows.Forms.GroupBox gb1;
         private System.Windows.Forms.RadioButton RBGeneratorOff;
         private System.Windows.Forms.RadioButton RBGeneratorOn;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

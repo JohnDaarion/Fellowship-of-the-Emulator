@@ -10,6 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DeviceEmulator.Infrastructure;
+using QRCoder;
+using System.Management;
+using System.Net.NetworkInformation;
 
 namespace DeviceEmulator
 {
@@ -34,8 +37,39 @@ namespace DeviceEmulator
             fileSystemWatcher1.Path = Config.ExchangeFileDir;
             _commands = new Commands(this);
             _receiver = new ReceiverBluetoothService(_commands);
+            pictureBox1.Image = makeQr();
         }
-        
+
+        private Image makeQr()
+        {
+            var qrGenerator = new QRCodeGenerator();
+            var address = GetBTMacAddress()
+                .ToString()
+                .ToUpper()
+                .Insert(2, ":")
+                .Insert(5, ":")
+                .Insert(8, ":")
+                .Insert(11, ":")
+                .Insert(14, ":");
+            var qrCodeData = qrGenerator.CreateQrCode(address, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
+            return qrCode.GetGraphic(20);
+        }
+
+        private static PhysicalAddress GetBTMacAddress()
+        {
+
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.FastEthernetFx &&
+                    nic.NetworkInterfaceType != NetworkInterfaceType.Wireless80211)
+                {
+                    return nic.GetPhysicalAddress();
+                }
+            }
+            return null;
+        }
+
         public bool Diode1State
         {
             get
