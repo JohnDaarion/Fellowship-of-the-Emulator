@@ -58,15 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands.cs" />
-    <Compile Include="DaviceEmulatorManagerValuesSetter.cs" />
     <Compile Include="DeviceEmulator.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DeviceEmulator.Designer.cs">
       <DependentUpon>DeviceEmulator.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeviceEmulatorManager.cs" />
-    <Compile Include="IDeviceEmulatorManager.cs" />
     <Compile Include="Infrastructure\Config.cs" />
     <Compile Include="IReceiverBluetoothService.cs" />
     <Compile Include="Program.cs" />
@@ -84,9 +81,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Infrastructure\SharedVariables.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

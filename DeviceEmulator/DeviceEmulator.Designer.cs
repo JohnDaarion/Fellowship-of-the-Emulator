@@ -39,7 +39,6 @@
             this.infoTextBox1 = new System.Windows.Forms.TextBox();
             this.infoTextBox2 = new System.Windows.Forms.TextBox();
             this.infoTextBox3 = new System.Windows.Forms.TextBox();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.gb1 = new System.Windows.Forms.GroupBox();
             this.RBGeneratorOff = new System.Windows.Forms.RadioButton();
             this.RBGeneratorOn = new System.Windows.Forms.RadioButton();
@@ -47,7 +46,6 @@
             this.RBBluetoothOff = new System.Windows.Forms.RadioButton();
             this.RBBluetoothOn = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.gb1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -61,7 +59,6 @@
             this.diode1.ReadOnly = true;
             this.diode1.Size = new System.Drawing.Size(20, 20);
             this.diode1.TabIndex = 0;
-            this.diode1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // diode2
             // 
@@ -80,7 +77,6 @@
             this.diode8.ReadOnly = true;
             this.diode8.Size = new System.Drawing.Size(20, 20);
             this.diode8.TabIndex = 2;
-            this.diode8.TextChanged += new System.EventHandler(this.diode8_TextChanged);
             // 
             // diode7
             // 
@@ -99,7 +95,6 @@
             this.diode6.ReadOnly = true;
             this.diode6.Size = new System.Drawing.Size(20, 20);
             this.diode6.TabIndex = 4;
-            this.diode6.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // diode5
             // 
@@ -109,7 +104,6 @@
             this.diode5.ReadOnly = true;
             this.diode5.Size = new System.Drawing.Size(20, 20);
             this.diode5.TabIndex = 5;
-            this.diode5.TextChanged += new System.EventHandler(this.diode5_TextChanged);
             // 
             // diode4
             // 
@@ -128,7 +122,6 @@
             this.diode3.ReadOnly = true;
             this.diode3.Size = new System.Drawing.Size(20, 20);
             this.diode3.TabIndex = 7;
-            this.diode3.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // infoTextBox1
             // 
@@ -137,7 +130,6 @@
             this.infoTextBox1.ReadOnly = true;
             this.infoTextBox1.Size = new System.Drawing.Size(286, 20);
             this.infoTextBox1.TabIndex = 8;
-            this.infoTextBox1.TextChanged += new System.EventHandler(this.infoTextBox1_TextChanged);
             // 
             // infoTextBox2
             // 
@@ -154,14 +146,6 @@
             this.infoTextBox3.ReadOnly = true;
             this.infoTextBox3.Size = new System.Drawing.Size(286, 20);
             this.infoTextBox3.TabIndex = 10;
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.NotifyFilter = System.IO.NotifyFilters.LastWrite;
-            this.fileSystemWatcher1.Path = "Infrastructure";
-            this.fileSystemWatcher1.SynchronizingObject = this;
-            this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             // 
             // gb1
             // 
@@ -263,7 +247,6 @@
             this.Name = "DeviceEmulator";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DeviceEmulator_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.gb1.ResumeLayout(false);
             this.gb1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -287,7 +270,6 @@
         private System.Windows.Forms.TextBox infoTextBox1;
         private System.Windows.Forms.TextBox infoTextBox2;
         private System.Windows.Forms.TextBox infoTextBox3;
-        private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton RBBluetoothOff;
         private System.Windows.Forms.RadioButton RBBluetoothOn;

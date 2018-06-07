@@ -21,24 +21,30 @@ namespace DeviceEmulator
         private string _infoTextBox1Key;
         private string _infoTextBox2Key;
         private string _infoTextBox3Key;
+        private int _randomValuesGeneratorInterval;
         private CancellationTokenSource _cancelSource;
         private Commands _commands;
         private ReceiverBluetoothService _receiver;
 
+
         public DeviceEmulator()
         {
             InitializeComponent();
+
             _infoTextBox1Key = Config.InfoTextBox1Key;
             infoTextBox1.Text = _infoTextBox1Key;
             _infoTextBox2Key = Config.InfoTextBox2Key;
             infoTextBox2.Text = _infoTextBox2Key;
             _infoTextBox3Key = Config.InfoTextBox3Key;
             infoTextBox3.Text = _infoTextBox3Key;
-            fileSystemWatcher1.Path = Config.ExchangeFileDir;
+            _randomValuesGeneratorInterval = Config.RandomValuesGeneratorInterval;
+
             _commands = new Commands(this);
             _receiver = new ReceiverBluetoothService(_commands);
+
             pictureBox1.Image = makeQr();
         }
+
 
         private Image makeQr()
         {
@@ -175,7 +181,6 @@ namespace DeviceEmulator
             set
             {
                 infoTextBox1.Invoke((MethodInvoker)(() => infoTextBox1.Text = _infoTextBox1Key + " " + value));
-                //infoTextBox1.Text = _infoTextBox1Key + " " + value;
             }
         }
 
@@ -188,7 +193,6 @@ namespace DeviceEmulator
             set
             {
                 infoTextBox2.Invoke((MethodInvoker)(() => infoTextBox2.Text = _infoTextBox2Key + " " + value));
-                //infoTextBox2.Text = _infoTextBox2Key + " " + value;
             }
         }
 
@@ -201,7 +205,6 @@ namespace DeviceEmulator
             set
             {
                 infoTextBox3.Invoke((MethodInvoker)(() => infoTextBox3.Text = _infoTextBox3Key + " " + value));
-                //infoTextBox3.Text = _infoTextBox3Key + " " + value;
             }
         }
 
@@ -210,12 +213,10 @@ namespace DeviceEmulator
             if (state)
             {
                 diode.Invoke((MethodInvoker)(() => diode.BackColor = Config.EnabledDiodeColor));
-                //diode.BackColor = Config.EnabledDiodeColor;
             }
             else
             {
                 diode.Invoke((MethodInvoker)(() => diode.BackColor = Config.DisabledDiodeColor));
-                //diode.BackColor = Config.DisabledDiodeColor;
             }
         }
 
@@ -236,123 +237,6 @@ namespace DeviceEmulator
             throw new InvalidOperationException("Stan diody jest nieprawidłowy.");
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void infoTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fileSystemWatcher1_Changed(object sender, System.IO.FileSystemEventArgs e)
-        {
-            Thread.Sleep(100);
-
-            List<string[]> records = null;
-
-            try
-            {
-                records = File.ReadLines(Infrastructure.Config.ExchangeFilePath)
-                              .Select(a => a.Split(';'))
-                              .ToList();
-            }
-            catch (UnauthorizedAccessException)
-            {
-
-            }
-
-            //records.RemoveAt(0);
-
-            foreach(var record in records)
-            {
-                if( record[0] == nameof(diode1) ) {
-                    bool value = bool.Parse(record[1]);
-                    Diode1State = value;
-                }
-
-                if (record[0] == nameof(diode2))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode2State = value;
-                }
-                if (record[0] == nameof(diode3))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode3State = value;
-                }
-
-                if (record[0] == nameof(diode4))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode4State = value;
-                }
-                if (record[0] == nameof(diode5))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode5State = value;
-                }
-
-                if (record[0] == nameof(diode6))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode6State = value;
-                }
-                if (record[0] == nameof(diode7))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode7State = value;
-                }
-
-                if (record[0] == nameof(diode8))
-                {
-                    bool value = bool.Parse(record[1]);
-                    Diode8State = value;
-                }
-
-                if (record[0] == nameof(infoTextBox1))
-                {
-                    InfoTextBox1Value = record[1];
-                }
-
-                if (record[0] == nameof(infoTextBox2))
-                {
-                    InfoTextBox2Value = record[1];
-                }
-
-                if (record[0] == nameof(infoTextBox3))
-                {
-                    InfoTextBox3Value = record[1];
-                }
-            }
-        }
-
-        private void DeviceEmulator_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void diode8_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void diode5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         public void GenerateNewValues(CancellationTokenSource token)
         {
             Random random = new Random();
@@ -367,7 +251,7 @@ namespace DeviceEmulator
                 InfoTextBox1Value = random.Next(101).ToString();
                 InfoTextBox2Value = random.Next(101).ToString();
                 InfoTextBox3Value = random.Next(101).ToString();
-                Thread.Sleep(10000);
+                Thread.Sleep(_randomValuesGeneratorInterval);
             }
         }
 
@@ -394,6 +278,11 @@ namespace DeviceEmulator
             {
                 _receiver.Stop();
             }
+        }
+
+        private void DeviceEmulator_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
