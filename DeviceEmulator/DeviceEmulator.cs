@@ -16,14 +16,35 @@ using System.Net.NetworkInformation;
 
 namespace DeviceEmulator
 {
+    /// <summary>
+    /// Klasa odpowiedzialna za interfejs użytkownika emulatora.
+    /// </summary>
     public partial class DeviceEmulator : Form
     {
+        /// <summary>
+        /// Klucz pierwszego pola tekstowego, inaczej opis wartości jaką reprezentuje.
+        /// </summary>
         private string _infoTextBox1Key;
+
+        /// <summary>
+        /// Klucz drugiego pola tekstowego, inaczej opis wartości jaką reprezentuje.
+        /// </summary>
         private string _infoTextBox2Key;
+
+        /// <summary>
+        /// Klucz trzeciego pola tekstowego, inaczej opis wartości jaką reprezentuje.
+        /// </summary>
         private string _infoTextBox3Key;
+
+        /// <summary>
+        /// Wartość interwału z którym będą generowane losowe wartości w interfejsie użytkownika.
+        /// </summary>
         private int _randomValuesGeneratorInterval;
+
         private CancellationTokenSource _cancelSource;
+
         private Commands _commands;
+
         private ReceiverBluetoothService _receiver;
 
 
@@ -45,7 +66,10 @@ namespace DeviceEmulator
             pictureBox1.Image = makeQr();
         }
 
-
+        /// <summary>
+        /// Metoda odpowiedzialna za generowanie kodu QR na podstawie adresu MAC karty sieciowej (Bluetooth) na którym emulator jest uruchomiony.
+        /// </summary>
+        /// <returns> Wygenerowany kod QR reprezentujący adres MAC </returns>
         private Image makeQr()
         {
             var qrGenerator = new QRCodeGenerator();
@@ -62,9 +86,12 @@ namespace DeviceEmulator
             return qrCode.GetGraphic(20);
         }
 
-        private static PhysicalAddress GetBTMacAddress()
+        /// <summary>
+        /// Metoda odpowiedzialna za zwrócenie adresu MAC karty sieciowej interfejsu Bluetooth
+        /// </summary>
+        /// <returns> Adres MAC karty sieciowej Bluetooth </returns>
+        private PhysicalAddress GetBTMacAddress()
         {
-
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (nic.NetworkInterfaceType == NetworkInterfaceType.FastEthernetFx &&
@@ -76,6 +103,11 @@ namespace DeviceEmulator
             return null;
         }
 
+
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu pierwszej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu pierwszej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode1State
         {
             get
@@ -88,6 +120,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu drugiej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu drugiej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode2State
         {
             get
@@ -100,6 +136,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu trzeciej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu trzeciej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode3State
         {
             get
@@ -112,6 +152,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu czwartej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu czwartej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode4State
         {
             get
@@ -124,6 +168,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu piatej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu piątej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode5State
         {
             get
@@ -136,6 +184,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu szóstej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu szóstej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode6State
         {
             get
@@ -148,6 +200,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu siódmej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu siódmej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode7State
         {
             get
@@ -160,6 +216,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie stanu ósmej diody na włączoną (dla wartości true) lub wyłączoną (dla wartości false)
+        /// oraz pobieranie stanu ósmej diody (true = włączona, false == wyłączona)
+        /// </summary>
         public bool Diode8State
         {
             get
@@ -172,6 +232,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie wartości tekstowej pierwszego pola tekstowego
+        /// oraz za pobieranie wartości tekstowej pierwszego pola tekstowego
+        /// </summary>
         public string InfoTextBox1Value
         {
             get
@@ -184,6 +248,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie wartości tekstowej drugiego pola tekstowego
+        /// oraz za pobieranie wartości tekstowej drugiego pola tekstowego
+        /// </summary>
         public string InfoTextBox2Value
         {
             get
@@ -196,6 +264,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Właściowść odpowiedzialna za ustawienie wartości tekstowej trzeciego pola tekstowego
+        /// oraz za pobieranie wartości tekstowej trzeciego pola tekstowego
+        /// </summary>
         public string InfoTextBox3Value
         {
             get
@@ -208,6 +280,12 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Metoda pomocnicza ustawiająca kolor diody (przekazanej jako argument "diode")
+        /// na wartości (zdefiniowane w pliku Config.cs) w zależności od argumentu "state".
+        /// </summary>
+        /// <param name="diode"> Referencja do obiektu diody. </param>
+        /// <param name="state"> Stan diody jaki chcemy ustawić (true = włączona, false = wyłączona). </param>
         private void SetDiodeState(TextBox diode, bool state)
         {
             if (state)
@@ -220,6 +298,10 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Metoda pomocnicza pobierająca stan diody (przekazanej jako argument "diode"). 
+        /// </summary>
+        /// <param name="diode"> Referencja do obiektu diody. </param>
         private bool CheckDiodeState(TextBox diode)
         {
             var color = diode.BackColor;
@@ -237,30 +319,33 @@ namespace DeviceEmulator
             throw new InvalidOperationException("Stan diody jest nieprawidłowy.");
         }
 
-        public void GenerateNewValues(CancellationTokenSource token)
+        /// <summary>
+        /// Metoda generująca losowe wartości dla elementów interfejsu użytkownika.
+        /// </summary>
+        /// <param name="token"> Cancellation token </param>
+        private void GenerateNewValues(CancellationToken token)
         {
             Random random = new Random();
 
-            while (true)
+            while (!token.IsCancellationRequested)
             {
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
-                
                 InfoTextBox1Value = random.Next(101).ToString();
                 InfoTextBox2Value = random.Next(101).ToString();
                 InfoTextBox3Value = random.Next(101).ToString();
+
                 Thread.Sleep(_randomValuesGeneratorInterval);
             }
         }
 
+        /// <summary>
+        /// Metoda wywoływana podczas przełączenia switcha (sekcja "Generator").
+        /// </summary>
         private void RBGeneratorOn_CheckedChanged(object sender, EventArgs e)
         {
             if (RBGeneratorOn.Checked)
             {
                 _cancelSource = new CancellationTokenSource();
-                Task.Run(() => GenerateNewValues(_cancelSource));
+                Task.Run(() => GenerateNewValues(_cancelSource.Token));
             }
             else
             {
@@ -268,6 +353,9 @@ namespace DeviceEmulator
             }
         }
 
+        /// <summary>
+        /// Metoda wywoływana podczas przełączenia switcha (sekcja "Bluetooth").
+        /// </summary>
         private void RBBluetoothOff_CheckedChanged(object sender, EventArgs e)
         {
             if (RBBluetoothOn.Checked)

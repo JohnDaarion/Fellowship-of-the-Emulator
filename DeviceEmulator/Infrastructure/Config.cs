@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DeviceEmulator.Infrastructure
 {
+    /// <summary>
+    /// Klasa reprezentująca konfigurację wielu różnych opcji dla tego projektu.
+    /// </summary>
     public static class Config
     {
         public const string InfoTextBox1Key = "Poziom naładowania baterii: ";
