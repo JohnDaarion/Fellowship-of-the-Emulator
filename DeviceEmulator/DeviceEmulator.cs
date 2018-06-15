@@ -13,6 +13,8 @@ using DeviceEmulator.Infrastructure;
 using QRCoder;
 using System.Management;
 using System.Net.NetworkInformation;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace DeviceEmulator
 {
@@ -21,6 +23,7 @@ namespace DeviceEmulator
     /// </summary>
     public partial class DeviceEmulator : Form
     {
+        private const int MilisecondsToWait = 10000;
         /// <summary>
         /// Klucz pierwszego pola tekstowego, inaczej opis wartości jaką reprezentuje.
         /// </summary>
@@ -37,17 +40,48 @@ namespace DeviceEmulator
         private string _infoTextBox3Key;
 
         /// <summary>
+        /// Buffer na wartość z pierwszego pola
+        /// </summary>
+        private int _buffValue1 = 0;
+
+        /// <summary>
+        /// Buffer na wartość z drugiego pola
+        /// </summary>
+        private int _buffValue2 = 0;
+
+        /// <summary>
+        /// Buffer na wartość z trzeciego pola
+        /// </summary>
+        private int _buffValue3 = 0;
+
+        /// <summary>
         /// Wartość interwału z którym będą generowane losowe wartości w interfejsie użytkownika.
         /// </summary>
         private int _randomValuesGeneratorInterval;
 
+        /// <summary>
+        /// Cancel source
+        /// </summary>
         private CancellationTokenSource _cancelSource;
 
+        /// <summary>
+        /// Commands
+        /// </summary>
         private Commands _commands;
 
+        /// <summary>
+        /// Reciever bluetooth
+        /// </summary>
         private ReceiverBluetoothService _receiver;
 
+        /// <summary>
+        /// Http client
+        /// </summary>
+        private static readonly HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// .ctor
+        /// </summary>
         public DeviceEmulator()
         {
             InitializeComponent();
@@ -73,7 +107,7 @@ namespace DeviceEmulator
         private Image makeQr()
         {
             var qrGenerator = new QRCodeGenerator();
-            var address = GetBTMacAddress()
+            var address = GetBTMacAddress()?
                 .ToString()
                 .ToUpper()
                 .Insert(2, ":")
@@ -81,7 +115,7 @@ namespace DeviceEmulator
                 .Insert(8, ":")
                 .Insert(11, ":")
                 .Insert(14, ":");
-            var qrCodeData = qrGenerator.CreateQrCode(address, QRCodeGenerator.ECCLevel.Q);
+            var qrCodeData = qrGenerator.CreateQrCode(address ?? "AAA", QRCodeGenerator.ECCLevel.Q);
             var qrCode = new QRCode(qrCodeData);
             return qrCode.GetGraphic(20);
         }
@@ -329,11 +363,40 @@ namespace DeviceEmulator
 
             while (!token.IsCancellationRequested)
             {
-                InfoTextBox1Value = random.Next(101).ToString();
-                InfoTextBox2Value = random.Next(101).ToString();
-                InfoTextBox3Value = random.Next(101).ToString();
+                _buffValue1 = random.Next(101);
+                InfoTextBox1Value = _buffValue1.ToString();
+                _buffValue2 = random.Next(101);
+                InfoTextBox2Value = _buffValue2.ToString();
+                _buffValue3 = random.Next(101);
+                InfoTextBox3Value = _buffValue3.ToString();
 
                 Thread.Sleep(_randomValuesGeneratorInterval);
+            }
+        }
+
+        /// <summary>
+        /// Wysyłaj wartości do bazy danych
+        /// </summary>
+        /// <param name="token">Cancellation token</param>
+        private void SendDataToDatabase(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+
+                var values = JsonConvert.SerializeObject(
+                new
+                {
+                    deviceId = 0,
+                    temperature = _buffValue2,
+                    humidity = _buffValue3
+                });
+
+                var content = new StringContent(values, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+
+                var response = client.PostAsync("http://pum-swierzaki-backend.193b.starter-ca-central-1.openshiftapps.com/v1/records", content).GetAwaiter().GetResult();
+
+                Thread.Sleep(MilisecondsToWait);
             }
         }
 
@@ -346,6 +409,7 @@ namespace DeviceEmulator
             {
                 _cancelSource = new CancellationTokenSource();
                 Task.Run(() => GenerateNewValues(_cancelSource.Token));
+                Task.Run(() => SendDataToDatabase(_cancelSource.Token));
             }
             else
             {
